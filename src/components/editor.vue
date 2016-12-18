@@ -36,6 +36,7 @@ import 'CodeMirror/keymap/sublime.js'
 import 'CodeMirror/lib/codemirror.css'
 import 'CodeMirror/addon/scroll/simplescrollbars.css'
 import 'highlight.js/styles/default.css'
+import '../assets/style/preview/vue.css'
 
 export default {
     data() {
@@ -375,7 +376,7 @@ export default {
   height: 100%;
   top: 0;
   left: 100%;
-  background: #f9f9f5;
+  background: #fff;
   z-index: 9999;
   overflow: auto;
   -webkit-transition: left 0.2s ease;
