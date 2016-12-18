@@ -6,13 +6,19 @@
 
 vue + element + axios
 
+## todo
+
+- [x] 文章管理
+- [x] 日志管理
+- [x] 数据分析
+
 ## Build Setup
 
-+ run server
+- run server
 
 [api](https://github.com/Cacivy/koa-typescript)
 
-+ local
+- local
 
 ``` bash
 # install dependencies
@@ -24,6 +30,11 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+
+##　Screenshots
+
+![文章管理](./src/assets/screenshots/postmanage.png)
+![文章编辑](./src/assets/screenshots/editpost.png)
 
 ## License
 
