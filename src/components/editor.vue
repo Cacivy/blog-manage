@@ -11,7 +11,7 @@
             <a class="icon-link" @click="replaceSelection('[', '](http://)')"></a>
             <a class="icon-image" @click="replaceSelection('![', '](http://)')"></a>
             <i class="separator">|</i>
-            <a class="icon-preview"></a>
+            <a class="icon-preview" :class="{'active': isPreview}" @click="togglePreview"></a>
             <a class="icon-fullscreen" @click="toggleFullScreen"></a>
         </div>
         <textarea id="m-editor"></textarea>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import marked from 'marked'
+import highlight from 'highlight.js'
 import CodeMirror from 'CodeMirror'
 import 'CodeMirror/addon/scroll/simplescrollbars'
 import 'CodeMirror/mode/gfm/gfm.js'
@@ -33,6 +35,7 @@ import 'CodeMirror/keymap/sublime.js'
 
 import 'CodeMirror/lib/codemirror.css'
 import 'CodeMirror/addon/scroll/simplescrollbars.css'
+import 'highlight.js/styles/default.css'
 
 export default {
     data() {
@@ -45,11 +48,27 @@ export default {
                     line: 0,
                     ch: 0
                 }
-            }
+            },
+            isPreview: false
         }
     },
     props: {
         value: String
+    },
+    created() {
+        marked.setOptions({
+            renderer: new marked.Renderer(),
+            gfm: true,
+            tables: true,
+            breaks: false,
+            pedantic: false,
+            sanitize: false,
+            smartLists: true,
+            smartypants: false,
+            highlight: function (code, lang) {
+                return highlight.highlightAuto(code).value
+            }
+        });
     },
     mounted() {
         let config = {
@@ -220,6 +239,27 @@ export default {
             } else if (cancel) {
                 cancel();
             }
+        },
+        togglePreview() {
+            var cm = this.editor;
+            var wrapper = cm.getWrapperElement();
+            var preview = wrapper.lastChild;
+            if (!/editor-preview/.test(preview.className)) {
+                preview = document.createElement('div');
+                preview.className = 'editor-preview';
+                wrapper.appendChild(preview);
+            }
+            if (/editor-preview-active/.test(preview.className)) {
+                preview.className = preview.className.replace(/\s*editor-preview-active\s*/g, '');
+                this.isPreview = false
+            } else {
+                setTimeout(function() {
+                    preview.className += ' editor-preview-active'
+                }, 1);
+                this.isPreview = true
+            }
+            var text = cm.getValue();
+            preview.innerHTML = marked(text);
         }
     },
     watch: {

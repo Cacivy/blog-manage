@@ -12,6 +12,8 @@
     "axios": "^0.15.3",
     "codemirror": "^5.21.0",
     "element-ui": "^1.0.7",
+    "highlight.js": "^9.9.0",
+    "marked": "^0.3.6",
     "moment": "^2.17.1",
     "vue": "^2.1.0",
     "vue-router": "^2.1.1",
