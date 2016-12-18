@@ -1,7 +1,7 @@
 <template>
-    <el-row>
+    <el-row :gutter="12">
         <el-col :span="16">
-            <textarea name="" v-model="form.content" id="" cols="30" rows="10"></textarea>
+            <editor v-model="form.content"></editor>
         </el-col>
         <el-col :span="8">
             <el-form ref="form" :model="form" label-width="80px">
@@ -46,14 +46,16 @@
 </template>
 
 <script>
+import editor from '../../components/editor'
 import API from '../../api'
 export default {
+    components: {editor},
     data() {
         return {
             form: {
                 title: '',
                 author: '',
-                date: '',
+                date: Date.now(),
                 content: '',
                 category: '',
                 tag: [],

@@ -55,7 +55,7 @@
                 inline-template
                 prop="url"
                 label="请求地址"
-                width="240">
+                width="340">
                 <div class="text-overflow" :title="row.url">
                     {{row.url}}
                 </div>
@@ -121,7 +121,7 @@ export default {
             }
         }
     },
-    mounted() {
+    created() {
       this.fetchDate()
     },
     methods: {

@@ -20,11 +20,11 @@ Vue.prototype.$http = instance
 var API = {}
 
 for (let item of Object.keys(apiBlog)) {
-    API[`get_${item}`] = (query) => Vue.prototype.$http.get(apiBlog[item] + toQueryString(query))
-    API[`getById_${item}`] = (id) => Vue.prototype.$http.get(apiBlog[item] + `/${id}`)
-    API[`post_${item}`] = (body) => Vue.prototype.$http.post(apiBlog[item], body)
-    API[`put_${item}`] = (body) => Vue.prototype.$http.put(apiBlog[item], body)
-    API[`delete_${item}`] = (id) => Vue.prototype.$http.delete(apiBlog[item] + `/${id}`)
+    API[`get_${item}`] = (query) => instance.get(apiBlog[item], {params: query})
+    API[`getById_${item}`] = (id) => instance.get(apiBlog[item] + `/${id}`)
+    API[`post_${item}`] = (body) => instance.post(apiBlog[item], body)
+    API[`put_${item}`] = (body) => instance.put(apiBlog[item], body)
+    API[`delete_${item}`] = (id) => instance.delete(apiBlog[item] + `/${id}`)
 }
 
 export default API

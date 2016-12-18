@@ -151,7 +151,7 @@ import {pickerOptions} from '../../utils/date'
         }
       }
     },
-    mounted() {
+    created() {
       this.fetchDate()
     },
     computed: {

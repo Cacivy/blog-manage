@@ -6,7 +6,7 @@ import log from '../page/log'
 import data from '../page/data'
 
 export default new VueRouter({
-  mode: 'history',  
+  mode: 'hash',  
   routes: [
     {
       path: '/',

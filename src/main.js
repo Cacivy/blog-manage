@@ -5,7 +5,6 @@ import Vuex from 'vuex'
 import './config/filter.config'
 import ElementUI from 'element-ui'
 import './assets/style/comman'
-import './assets/style/reset'
 import 'element-ui/lib/theme-default/index.css'
 import App from './App'
 
