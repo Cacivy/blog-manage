@@ -4,11 +4,11 @@
             <editor v-model="form.content"></editor>
         </el-col>
         <el-col :span="8">
-            <el-form ref="form" :model="form" label-width="80px">
-                <el-form-item label="文章标题">
+            <el-form ref="ruleForm" :rules="rules" :model="form" label-width="100px">
+                <el-form-item label="文章标题" prop="title">
                     <el-input v-model="form.title"></el-input>
                 </el-form-item>
-                <el-form-item label="选择分类">
+                <el-form-item label="选择分类" prop="category">
                     <el-select v-model="form.category" placeholder="请选择文章分类">
                         <el-option 
                         v-for="category in categories" 
@@ -63,6 +63,14 @@ export default {
                 tag: [],
                 delivery: false
             },
+            rules: {
+                title: [
+                     { required: true, message: '请输入文章标题', trigger: 'blur' }
+                ],
+                category: [
+                    { required: true, message: '请选择分类', trigger: 'blur' }
+                ]
+            },
             state: '',
             suggestions: [],
             categories: []
@@ -98,14 +106,21 @@ export default {
             this.form.tag.splice(this.form.tag.indexOf(tag), 1)
         },
         onSubmit() {
-            let req = this.form._id ? API.put_post(this.form) : API.post_post(this.form)
-            req.then(res => {
-                this.$router.push({path: '/post'})
-                this.$message({
-                    type: 'success',
-                    message: '保存成功!'
-                });
+            this.$refs.ruleForm.validate((valid) => {
+                if (valid) {
+                    let req = this.form._id ? API.put_post(this.form) : API.post_post(this.form)
+                    req.then(res => {
+                        this.$router.push({path: '/post'})
+                        this.$message({
+                            type: 'success',
+                            message: '保存成功!'
+                        });
+                    })
+                } else {
+                   
+                }
             })
+            
         },
         onCancel() {
             this.$router.go(-1)

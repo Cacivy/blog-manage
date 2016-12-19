@@ -31,7 +31,7 @@ npm run dev
 npm run build
 ```
 
-##　Screenshots
+## Screenshots
 
 ![文章管理](./src/assets/screenshots/postmanage.png)
 ![文章编辑](./src/assets/screenshots/editpost.png)
