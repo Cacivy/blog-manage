@@ -2,7 +2,9 @@ const host = 'http://localhost:8080/api/'
 
 const apiBlog = {
     post: 'post',
-    log: 'log'
+    log: 'log',
+    tag: 'tag',
+    category: 'category'
 }
 
 import Vue from 'vue'

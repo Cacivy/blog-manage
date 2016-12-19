@@ -41,7 +41,7 @@ import '../assets/style/preview/vue.css'
 export default {
     data() {
         return {
-            content: '',
+            content: '### Title',
             status: {
                 lines: 0,
                 words: 0,

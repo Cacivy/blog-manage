@@ -5,6 +5,12 @@
         <router-link :to="{ path: '/post/add' }">
           <el-button type="primary" icon="edit">添加文章</el-button>
         </router-link>
+        <router-link :to="{ path: '/tag' }">
+          <el-button type="primary" icon="star-on">标签管理</el-button>
+        </router-link>
+        <router-link :to="{ path: '/category' }">
+          <el-button type="primary" icon="menu">分类管理</el-button>
+        </router-link>
       </el-col>
       <el-col :span="0">
         <el-row :gutter="12" type="flex">
@@ -263,8 +269,6 @@ import {pickerOptions} from '../../utils/date'
   }
 </script>
 
-<style scoped>
-.el-tag-custome {
-  margin-right: 5px;
-}
+<style>
+
 </style>

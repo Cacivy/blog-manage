@@ -10,9 +10,11 @@
                 </el-form-item>
                 <el-form-item label="选择分类">
                     <el-select v-model="form.category" placeholder="请选择文章分类">
-                        <el-option label="技术" value="技术"></el-option>
-                        <el-option label="笔记" value="笔记"></el-option>
-                        <el-option label="其它" value="其它"></el-option>
+                        <el-option 
+                        v-for="category in categories" 
+                        :label="category.text" 
+                        :value="category.text">
+                        </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="选择标签">
@@ -25,8 +27,8 @@
                         placeholder="请选择文章标签">
                             <el-option
                             v-for="item in suggestions"
-                            :label="item.value"
-                            :value="item.value">
+                            :label="item.text"
+                            :value="item.text">
                             </el-option>
                     </el-select>
                 </el-form-item>
@@ -62,18 +64,8 @@ export default {
                 delivery: false
             },
             state: '',
-            suggestions: [
-                {value: 'js'},
-                {value: 'css'},
-                {value: 'angular2'},
-                {value: 'vue'},
-                {value: 'sass'},
-                {value: 'less'},
-                {value: 'es6'},
-                {value: 'es5'},
-                {value: 'typescript'},
-                {value: 'react'}
-            ]
+            suggestions: [],
+            categories: []
         }
     },
     mounted() {
@@ -83,11 +75,17 @@ export default {
                 this.form = res.data.result
             })
         }
+        API.get_tag().then(res => {
+            this.suggestions = res.data.result
+        })
+        API.get_category().then(res => {
+            this.categories = res.data.result
+        })
     },
     methods: {
         querySearch(queryString, cb) {
             var suggestions = this.suggestions;
-            var results = queryString ? suggestions.filter(x => x.value.indexOf(queryString) > -1) : suggestions;
+            var results = queryString ? suggestions.filter(x => x.text.indexOf(queryString) > -1) : suggestions;
             cb(results);
         },
         handleSelect(item) {
