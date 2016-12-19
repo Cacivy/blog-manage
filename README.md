@@ -2,10 +2,6 @@
 
 > blog management project
 
-## stack
-
-vue + element + axios
-
 ## todo
 
 - [x] 文章管理
@@ -14,11 +10,11 @@ vue + element + axios
 
 ## Build Setup
 
-- run server
+run server
 
-[api](https://github.com/Cacivy/koa-typescript)
+**[API](https://github.com/Cacivy/koa-typescript)**
 
-- local
+local
 
 ``` bash
 # install dependencies
@@ -36,14 +32,16 @@ npm run build
 ![文章管理](./src/assets/screenshots/postmanage.png)
 ![文章编辑](./src/assets/screenshots/editpost.png)
 
-## License
+## Built With
 
-MIT. 
-
-## Thanks
-
+- [vue](http://cn.vuejs.org/)
+- [axios](https://github.com/mzabriskie/axios)
 - [editor](https://github.com/lepture/editor)
 - [CodeMirror](http://codemirror.net/)
 - [element](http://element.eleme.io/)
 - [marked](https://github.com/chjj/marked)
 - [highlightjs](https://highlightjs.org/)
+
+## License
+
+MIT. 
