@@ -4,7 +4,8 @@ const apiBlog = {
     post: 'post',
     log: 'log',
     tag: 'tag',
-    category: 'category'
+    category: 'category',
+    data: 'data'
 }
 
 import Vue from 'vue'

@@ -2,7 +2,7 @@ const convertTen = (num) => {
    return num < 10 ? ('0' + num) : num
 }
 
-export const conertToDate = (val) => {
+export const convertToDate = (val) => {
     let date = new Date(val)
     if (date.toString() === 'Invalid Date') {
         return '0000-00-00'
