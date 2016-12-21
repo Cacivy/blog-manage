@@ -43,21 +43,21 @@
             </el-table-column>
             <el-table-column
                 inline-template
-                prop="time"
-                label="日期"
-                width="210">
-                 <div>
-                    <el-icon name="time"></el-icon>
-                    <span style="margin-left: 10px">{{ row.time | time }}</span>
-                </div>
-            </el-table-column>
-            <el-table-column
-                inline-template
                 prop="url"
                 label="请求地址"
                 width="340">
                 <div class="text-overflow" :title="row.url">
                     {{row.url}}
+                </div>
+            </el-table-column>
+            <el-table-column
+                inline-template
+                prop="time"
+                label="时间"
+                width="210">
+                 <div>
+                    <el-icon name="time"></el-icon>
+                    <span style="margin-left: 10px">{{ row.time | time }}</span>
                 </div>
             </el-table-column>
             <el-table-column

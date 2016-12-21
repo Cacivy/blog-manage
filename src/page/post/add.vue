@@ -50,6 +50,7 @@
 <script>
 import editor from '../../components/editor'
 import API from '../../api'
+import {getDate} from '../../utils/date'
 export default {
     components: {editor},
     data() {
@@ -57,7 +58,7 @@ export default {
             form: {
                 title: '',
                 author: '',
-                date: Date.now(),
+                date: getDate(),
                 content: '',
                 category: '',
                 tag: [],
@@ -68,7 +69,7 @@ export default {
                      { required: true, message: '请输入文章标题', trigger: 'blur' }
                 ],
                 category: [
-                    { required: true, message: '请选择分类', trigger: 'blur' }
+                    { required: true, message: '请选择分类', trigger: 'change' }
                 ]
             },
             state: '',

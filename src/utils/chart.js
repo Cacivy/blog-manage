@@ -54,8 +54,21 @@ const data2 = {
             pointHitRadius: 10,
             data: [65, 59, 80, 81, 56, 55, 40],
             spanGaps: false,
+            
         }
-    ]
+    ],
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    stepSize: 1
+                }
+            }]
+        },
+        maintainAspectRatio: false,
+        responsive: true
+    }
 };
 
 export const creatChart = (type, options) => {
@@ -96,10 +109,11 @@ export const creatChart = (type, options) => {
             datasets.data = options.data
         }
     }
-    
+
     let config = {
         type,
         data,
+        options: data.options,
         animation: {
             animateScale: true,
             animateRotate: true

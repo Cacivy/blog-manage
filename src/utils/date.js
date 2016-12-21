@@ -14,6 +14,10 @@ export const convertToDate = (val) => {
     return `${year}-${month}-${day}`
 }
 
+export const getDate = () => {
+    return convertToDate(Date.now())
+}
+
 export const pickerOptions = {
     shortcuts: [{
     text: '最近一周',
