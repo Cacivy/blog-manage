@@ -31,6 +31,7 @@ npm run build
 
 ![文章管理](./src/assets/screenshots/postmanage.png)
 ![文章编辑](./src/assets/screenshots/editpost.png)
+![数据分析](./src/assets/screenshots/data.png)
 
 ## Built With
 
