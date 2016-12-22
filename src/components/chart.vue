@@ -1,5 +1,5 @@
 <template>
-    <div class="container" :style="{width: ['line'].includes(type) ? '80%' : '30%', height: ['line'].includes(type) ? '500px' : '100%'}">
+    <div class="container" :style="{width: ['line'].includes(type) ? '80%' : '30%', height: ['line'].includes(type) ? '300px' : '100%'}">
         <h3>{{title}}</h3>
         <canvas width="300" height="300"></canvas>
     </div>

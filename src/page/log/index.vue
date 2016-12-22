@@ -112,7 +112,7 @@ export default {
                 label: '日志内容',
                 value: 'msg'
             }],
-            pickerOptions: pickerOptions,
+            pickerOptions,
             datetime: [],
             pageConfig: {
                 currentPage: 1,

@@ -148,7 +148,7 @@ import {pickerOptions} from '../../utils/date'
         loading: true,
         datetime: [],
         title: '',
-        pickerOptions: pickerOptions,
+        pickerOptions,
         tableData: [],
         pageConfig: {
           currentPage: 1,
