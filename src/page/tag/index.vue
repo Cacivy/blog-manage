@@ -4,6 +4,7 @@
             <el-col :span="6">
                 <el-input
                 placeholder="请输入标签名称"
+                @keyup.enter.native="onCommit"
                 v-model="input">
                 </el-input>
             </el-col>
@@ -43,6 +44,10 @@ export default {
             API.post_tag({text: this.input}).then(res => {
                 this.tags.push(res.data.result)
                 this.input = ''
+                this.$message({
+                    type: 'success',
+                    message: '已添加'
+                });
             })
         },
         onClose(id, index) {
