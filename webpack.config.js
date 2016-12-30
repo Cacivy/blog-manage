@@ -57,9 +57,10 @@ module.exports = {
     noInfo: true
   },
   devtool: '#eval-source-map',
-  performance: {
-    hints: false
-  }
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {

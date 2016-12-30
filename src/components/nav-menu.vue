@@ -23,11 +23,10 @@
 </template>
 
 <script>
-import API from '../api/'
   export default {
     methods: {
       logout() {
-        API.get_logout().then(res => {
+        this.$api.get_logout().then(res => {
           this.$message({
               type: 'success',
               message: '已退出'

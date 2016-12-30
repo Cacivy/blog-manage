@@ -21,8 +21,7 @@ const apiBlog = {
     category: 'category',
     data: 'data',
     login: 'login',
-    logout: 'logout',
-    user: 'user'
+    logout: 'logout'
 }
 
 instance.interceptors.response.use(function (response) {
@@ -48,4 +47,4 @@ for (let item of Object.keys(apiBlog)) {
 
 Vue.prototype.$api = API
 
-export default API
+export default instance

@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <h3>Cacivy's Blog Backstage Management</h3>
+        <h3>Login</h3>
         <el-form label-width="80px" :model="userinfo" :rules="rules" ref="loginForm" class="login-form">
             <el-form-item label="用户名" prop="username">
                 <el-input v-model="userinfo.username"></el-input>
@@ -81,7 +81,7 @@ export default {
         transition: .2s;
 
         &:hover {
-            box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
+            box-shadow: 0 0 10px 0 rgba(232,237,250,.6), 0 4px 6px 0 rgba(232,237,250,.5);
         }
 
         h3 {
