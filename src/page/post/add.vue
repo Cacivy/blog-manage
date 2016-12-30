@@ -49,7 +49,6 @@
 
 <script>
 import editor from '../../components/editor'
-import API from '../../api'
 import {getDate} from '../../utils/date'
 export default {
     components: {editor},
@@ -80,14 +79,14 @@ export default {
     mounted() {
         let id = this.$route.params.id
         if (id) {
-            API.getById_post(id).then(res => {
+            this.$api.getById_post(id).then(res => {
                 this.form = res.data.result
             })
         }
-        API.get_tag().then(res => {
+        this.$api.get_tag().then(res => {
             this.suggestions = res.data.result
         })
-        API.get_category().then(res => {
+        this.$api.get_category().then(res => {
             this.categories = res.data.result
         })
     },
@@ -109,7 +108,7 @@ export default {
         onSubmit() {
             this.$refs.ruleForm.validate((valid) => {
                 if (valid) {
-                    let req = this.form._id ? API.put_post(this.form) : API.post_post(this.form)
+                    let req = this.form._id ? this.$api.put_post(this.form) : this.$api.post_post(this.form)
                     req.then(res => {
                         this.$router.push({path: '/post'})
                         this.$message({

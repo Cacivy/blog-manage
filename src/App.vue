@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav-menu></nav-menu>
+    <nav-menu v-show="$store.state.route.name !== 'login'"></nav-menu>
     <div class="content">
       <router-view></router-view>
     </div>

@@ -96,7 +96,6 @@
 
 <script>
 import moment from 'moment'
-import API from '../../api'
 import {pickerOptions} from '../../utils/date'
 export default {
     data() {
@@ -128,7 +127,7 @@ export default {
         fetchDate() {
             this.loading = true;
             let loadingStartTime = new Date()
-            API.get_log({
+            this.$api.get_log({
                 pageSize: this.pageConfig.pageSize,
                 currentPage: this.pageConfig.currentPage,
                 startTime: this.datetime[0] ? moment(this.datetime[0]).add(-1, 'days').format('YYYY-MM-DD') : '',

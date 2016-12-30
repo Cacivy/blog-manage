@@ -11,13 +11,31 @@
       <el-menu-item index="2" :route="{path: '/post'}">文章管理</el-menu-item>
       <el-menu-item index="3" :route="{path: '/data'}">数据分析</el-menu-item>
       <el-menu-item index="4" :route="{path: '/log'}">日志记录</el-menu-item>
+      <div class="el-menu-userinfo">
+        <el-submenu index="5">
+          <template slot="title" index="5-1">{{$store.state.userinfo && $store.state.userinfo.username}}</template>
+          <el-menu-item index="5-2">设置</el-menu-item>
+          <el-menu-item index="5-3" @click.native="logout">退出</el-menu-item>
+        </el-submenu>
+      </div>
     </el-menu>
   </div>
 </template>
 
 <script>
+import API from '../api/'
   export default {
     methods: {
+      logout() {
+        API.get_logout().then(res => {
+          this.$message({
+              type: 'success',
+              message: '已退出'
+          })
+          this.$store.dispatch('setUser', null)
+          this.$router.push({name: 'login'})
+        })
+      },
       handleSelect(key, keyPath) {
         
       }
@@ -28,5 +46,9 @@
 <style scoped>
   .el-menu-nav {
     padding-left: 100px;
+  }
+  .el-menu-userinfo {
+    float: right;
+    margin-right: 100px;
   }
 </style>

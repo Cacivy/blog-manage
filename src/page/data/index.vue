@@ -11,7 +11,6 @@
 
 <script>
 import chart from '../../components/chart'
-import API from '../../api'
 export default {
     components: {chart},
     data() {
@@ -20,7 +19,7 @@ export default {
         }
     },
     created() {
-        API.get_data().then(res => {
+        this.$api.get_data().then(res => {
             this.charts = res.data.result
         })
     }

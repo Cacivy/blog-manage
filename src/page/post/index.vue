@@ -140,7 +140,6 @@
 
 <script>
 import moment from 'moment'
-import API from '../../api'
 import {pickerOptions} from '../../utils/date'
   export default {
     data() {
@@ -198,7 +197,7 @@ import {pickerOptions} from '../../utils/date'
       fetchDate() {
         this.loading = true;
         let loadingStartTime = new Date()
-        API.get_post({
+        this.$api.get_post({
           pageSize: this.pageConfig.pageSize,
           currentPage: this.pageConfig.currentPage,
           startTime: this.datetime[0] ? moment(this.datetime[0]).add(-1, 'days').format('YYYY-MM-DD') : '',
@@ -231,7 +230,7 @@ import {pickerOptions} from '../../utils/date'
           confirmButtonText: '确定',
           type: 'warning'
         }).then(() => {
-          API.delete_post(row._id).then(res => {
+          this.$api.delete_post(row._id).then(res => {
             if(!res.data.error) {
               this.$message({
                 type: 'success',
@@ -256,7 +255,7 @@ import {pickerOptions} from '../../utils/date'
         this.fetchDate()
       },
       onChangeDelivery(row) {
-        API.put_post(row).then(res => {
+        this.$api.put_post(row).then(res => {
           if (!res.data.error) {
             this.$message({
               type: 'success',

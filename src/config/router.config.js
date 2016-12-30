@@ -1,5 +1,7 @@
+import Vue from 'vue'
 import VueRouter from 'vue-router'
 import index from '../page/index'
+import login from '../page/user/login'
 import post from '../page/post'
 import postAdd from '../page/post/add'
 import log from '../page/log'
@@ -7,15 +9,23 @@ import data from '../page/data'
 import tag from '../page/tag'
 import category from '../page/category'
 
+Vue.use(VueRouter)
+
 export default new VueRouter({
-  mode: 'hash',  
+  mode: 'history',
   routes: [
     {
       path: '/',
       component: index
     },
     {
+      path: '/login',
+      name: 'login',
+      component: login
+    },
+    {
       path: '/post',
+      name: 'post',
       component: post
     },
     {

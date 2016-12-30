@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import API from '../../api'
 export default {
     data() {
         return {
@@ -34,14 +33,14 @@ export default {
         }
     },
     mounted() {
-        API.get_tag().then(res => {
+        this.$api.get_tag().then(res => {
             this.tags = res.data.result
             this.total = res.data.total
         })
     },
     methods: {
         onCommit() {
-            API.post_tag({text: this.input}).then(res => {
+            this.$api.post_tag({text: this.input}).then(res => {
                 this.tags.push(res.data.result)
                 this.input = ''
                 this.$message({
@@ -56,7 +55,7 @@ export default {
                 confirmButtonText: '确定',
                 type: 'warning'
             }).then(() => {
-                API.delete_tag(id).then(res => {
+                this.$api.delete_tag(id).then(res => {
                     this.$message({
                         type: 'success',
                         message: '删除成功'
