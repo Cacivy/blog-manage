@@ -71,6 +71,10 @@ const data2 = {
     }
 };
 
+export const getRandomColor = function(){
+    return `rgba(${(Math.floor(Math.random() * 256))}, ${(Math.floor(Math.random() * 256))}, ${(Math.floor(Math.random() * 256))}, 0.7)`;
+ }
+
 export const creatChart = (type, options) => {
     let data = {}
 
@@ -86,7 +90,7 @@ export const creatChart = (type, options) => {
             datasets.data = options.data
             datasets.data.forEach((x, index) => {
                 let keys = Object.keys(chartColors)
-                let color = chartColors[keys[index]] || '#FF6384'
+                let color = getRandomColor() // chartColors[keys[index]] || '#FF6384'
                 datasets.backgroundColor.push(color)
                 datasets.hoverBackgroundColor.push(color)
                 datasets.hoverBorderColor.push('#ABC')

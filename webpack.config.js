@@ -54,7 +54,8 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    port: 8086
   },
   devtool: '#eval-source-map',
   plugins: [
