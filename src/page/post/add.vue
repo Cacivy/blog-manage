@@ -53,15 +53,16 @@ import {getDate} from '../../utils/date'
 export default {
     components: {editor},
     data() {
+        const username = this.$store.state.userinfo.username
         return {
             form: {
                 title: '',
-                author: '',
                 date: getDate(),
                 content: '',
                 category: '',
                 tag: [],
-                delivery: false
+                delivery: false,
+                author: username
             },
             rules: {
                 title: [
