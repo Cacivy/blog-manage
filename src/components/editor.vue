@@ -92,6 +92,24 @@ export default {
             this.status.pos.line = pos.line
             this.status.pos.ch = pos.ch
         }))
+        this.editor.on('drop', (cm, e) => {
+            e.preventDefault()
+            let fileList = e.dataTransfer.files
+            if (!fileList.length) {
+                return false
+            }
+            if (fileList[0].type.indexOf('image') === -1) {
+                return false
+            }
+            var url = (window.webkitURL || window.URL).createObjectURL(fileList[0]); 
+            var filename = fileList[0].name; //图片名称 
+            var filesize = Math.floor((fileList[0].size)/1024);  
+            if(filesize>500){ 
+                alert("上传大小不能超过500K."); 
+                return false; 
+            }
+            this.replaceSelection('!['+filename, `](${url})`)
+        })
         this.editor.setValue(this.value || this.content)
 
         this.editor.isLine = (doc, l) => {
