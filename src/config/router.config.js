@@ -12,7 +12,7 @@ import category from '../page/category'
 Vue.use(VueRouter)
 
 export default new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     {
       path: '/',

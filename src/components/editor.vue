@@ -1,5 +1,5 @@
 <template>
-    <div>   
+    <div id="editor">   
         <div class="editor-toolbar">
             <a class="icon-bold" @click="toggleBlock('bold', '**')"></a>
             <a class="icon-italic" @click="toggleBlock('italic', '*')"></a>
@@ -28,6 +28,7 @@ import marked from 'marked'
 import highlight from 'highlight.js'
 import CodeMirror from 'CodeMirror'
 import 'CodeMirror/addon/scroll/simplescrollbars'
+import "codemirror/addon/display/placeholder.js"
 import 'CodeMirror/mode/gfm/gfm.js'
 import 'CodeMirror/mode/javascript/javascript.js'
 import 'CodeMirror/mode/css/css.js'
@@ -72,14 +73,16 @@ export default {
         });
     },
     mounted() {
-        let config = {
+        const config = {
             mode: 'gfm',
-            lineNumbers: false, 
+            lineNumbers: false,
             theme: "default",
             autofocus: true,
             lineWrapping: true,
             scrollbarStyle: "simple", // overlay
             tabSize: 2,
+            allowDropFileTypes: ["text/plain"],
+            placeholder: "Content",
             indentWithTabs: true,
             keyMap: 'sublime'
         }
@@ -230,8 +233,8 @@ export default {
             cm.focus();
         },
         toggleFullScreen() {
-            var el = this.editor.getWrapperElement();
-
+            var el = document.querySelector('#editor') //this.editor.getWrapperElement();
+            
             // https://developer.mozilla.org/en-US/docs/DOM/Using_fullscreen_mode
             var doc = document;
             var isFull = doc.fullScreen || doc.mozFullScreen || doc.webkitIsFullScreen;
@@ -301,7 +304,6 @@ export default {
     font-size: 16px;
     border: 1px solid #eee;*/
     border-top: 0;
-    height: 450px;
 }
 
 :-webkit-full-screen {
@@ -309,6 +311,10 @@ export default {
   padding: 0.5em 1em;
   width: 100% !important;
   height: 100% !important;
+}
+
+:-webkit-full-screen>.CodeMirror {
+    height: calc(100% - 77px);
 }
 
 .editor-toolbar {
