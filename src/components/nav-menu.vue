@@ -26,7 +26,7 @@
   export default {
     methods: {
       logout() {
-        this.$api.get_logout().then(res => {
+        this.$api.get_user_logout().then(res => {
           this.$message({
               type: 'success',
               message: '已退出'

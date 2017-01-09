@@ -15,13 +15,18 @@ var instance = axios.create({
 })
 
 const apiBlog = {
-  post: 'post',
-  log: 'log',
-  tag: 'tag',
-  category: 'category',
-  data: 'data',
-  login: 'login',
-  logout: 'logout'
+  post: [],
+  log: [],
+  tag: [],
+  category: [],
+  data: [],
+  user: [{
+    name: 'login',
+    method: 'post'
+  }, {
+    name: 'logout',
+    method: 'get'
+  }]
 }
 
 instance.interceptors.response.use(function (response) {
@@ -37,14 +42,30 @@ Vue.prototype.$http = instance
 
 var API = {}
 
-for (let item of Object.keys(apiBlog)) {
-  API[`get_${item}`] = (query) => instance.get(apiBlog[item], { params: query })
-  API[`getById_${item}`] = (id) => instance.get(apiBlog[item] + `/${id}`)
-  API[`post_${item}`] = (body) => instance.post(apiBlog[item], body)
-  API[`put_${item}`] = (body) => instance.put(apiBlog[item], body)
-  API[`delete_${item}`] = (id) => instance.delete(apiBlog[item] + `/${id}`)
+for (let key of Object.keys(apiBlog)) {
+  let list = apiBlog[key]
+  if (list.length) {
+    list.forEach(item => {
+      let name = item.name
+      switch (item.method) {
+        case 'get': {
+          API[`get_${key}_${name}`] = (query) => instance.get(`${key}/${name}`, { params: query })
+          break
+        }
+        case 'post': {
+          API[`post_${key}_${name}`] = (body) => instance.post(`${key}/${name}`, body)
+          break
+        }
+      }
+    })
+  }
+  API[`get_${key}`] = (query) => instance.get(key, { params: query })
+  API[`getById_${key}`] = (id) => instance.get(key + `/${id}`)
+  API[`post_${key}`] = (body) => instance.post(key, body)
+  API[`put_${key}`] = (body) => instance.put(key, body)
+  API[`delete_${key}`] = (id) => instance.delete(key + `/${id}`)
 }
 
 Vue.prototype.$api = API
 
-export default instance
+export default API

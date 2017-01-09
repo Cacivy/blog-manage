@@ -41,7 +41,7 @@ export default {
             this.$refs.loginForm.validate((valid) => {
                 if (valid) {
                     this.loading = true
-                    this.$api.post_login(this.userinfo).then((res) => {
+                    this.$api.post_user_login(this.userinfo).then((res) => {
                         if (res.data.error) {
                             this.$message({
                                 type: 'error',

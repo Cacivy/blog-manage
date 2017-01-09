@@ -3,7 +3,7 @@ import router from './config/router.config'
 import store from './vuex'
 import { sync } from 'vuex-router-sync'
 import './config/filter.config'
-import axios from './api'
+import API from './api'
 import ElementUI from 'element-ui'
 import './assets/style/comman'
 import 'element-ui/lib/theme-default/index.css'
@@ -16,7 +16,7 @@ sync(store, router)
 router.beforeEach((to, from, next) => {
   if (to.name !== 'login' && (!store.state.userinfo || !store.state.userinfo.username)) {
     // getUser
-    axios.get('user').then(res => {
+    API.get_user().then(res => {
       if (!res.data.error && res.data.result) {
         store.dispatch('setUser', res.data.result)
         next()
