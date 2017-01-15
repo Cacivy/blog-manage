@@ -6,10 +6,12 @@
         :type="item.type" 
         :options="item.options">
         </chart>
+        <div class="clear"></div>
     </div>
 </template>
 
 <script>
+
 import chart from '../../components/chart'
 export default {
     components: {chart},
@@ -25,3 +27,6 @@ export default {
     }
 }
 </script>
+
+<style>
+</style>

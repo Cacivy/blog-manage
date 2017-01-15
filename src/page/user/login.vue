@@ -54,7 +54,7 @@ export default {
                                 message: '登录成功'
                             })
                             this.$store.dispatch('setUser', res.data.result)
-                            this.$router.push({name: 'post'})
+                            this.$router.push({name: 'home'})
                         }
                     }).catch((res) => {
                         this.loading = false

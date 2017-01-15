@@ -1,13 +1,14 @@
 <template>
-    <div class="container" :style="{width: ['line'].includes(type) ? '80%' : '30%', height: ['line'].includes(type) ? '300px' : '100%'}">
+    <div class="container" :style="styleObj">
         <h3>{{title}}</h3>
-        <canvas width="300" height="300"></canvas>
+        <canvas width="400" height="400"></canvas>
     </div>
 </template>
 
 <script>
 import Chart from 'chart.js'
-import {creatChart} from '../utils/chart'
+import WordCloud from 'wordcloud'
+import {creatChart, getRandomColor} from '../utils/chart'
 export default {
     props: {
         title: String,
@@ -16,7 +17,24 @@ export default {
     },
     mounted() {
         var ctx = this.$el.querySelector('canvas')
-        var myChart = new Chart(ctx, creatChart(this.type, this.options))
+        if (this.type === 'word') {
+            let options = {
+                list: this.options.list,
+                color: getRandomColor,
+                backgroundColor: '#fff'
+            }
+            WordCloud(ctx, options)
+        } else {
+            var myChart = new Chart(ctx, creatChart(this.type, this.options))
+        }
+    },
+    computed: {
+        styleObj() {
+            return {
+                width: ['line'].includes(this.type) ? '80%' : '30%', 
+                height: ['line'].includes(this.type) ? '300px' : '100%'
+            }
+        }
     }
 }
 </script>
