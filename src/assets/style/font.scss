@@ -1,81 +1,69 @@
 @font-face {
 	font-family: 'icomoon';
-	src: url('../font/icomoon.woff') format('woff');
+	src:  url('../fonts/icomoon.eot?1z36s8');
+  src:  url('../fonts/icomoon.eot?1z36s8#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?1z36s8') format('truetype'),
+    url('../fonts/icomoon.woff?1z36s8') format('woff'),
+    url('../fonts/icomoon.svg?1z36s8#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
-/* Use the following CSS code if you want to use data attributes for inserting your icons */
-[data-icon]:before {
-	font-family: 'icomoon';
-	content: attr(data-icon);
-	speak: none;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-
-.icon-bold, .icon-italic, .icon-quote, .icon-unordered-list, .icon-ordered-list, .icon-link, .icon-image, .icon-play, .icon-music, .icon-contract, .icon-fullscreen, .icon-question, .icon-info, .icon-undo, .icon-redo, .icon-code, .icon-preview {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-}
-.icon-bold:before {
-	content: "\e000";
-}
-.icon-italic:before {
-	content: "\e001";
-}
-.icon-quote:before {
-	content: "\e003";
-}
-.icon-unordered-list:before {
-	content: "\e004";
-}
-.icon-ordered-list:before {
-	content: "\e005";
-}
-.icon-link:before {
-	content: "\e006";
+.icon-columns:before {
+  content: "\e900";
 }
 .icon-image:before {
-	content: "\e007";
+  content: "\e90d";
 }
-.icon-play:before {
-	content: "\e008";
+.icon-quotes-left:before {
+  content: "\e977";
 }
-.icon-music:before {
-	content: "\e009";
+.icon-enlarge:before {
+  content: "\e989";
 }
-.icon-contract:before {
-	content: "\e00a";
+.icon-enlarge2:before {
+  content: "\e98b";
 }
-.icon-fullscreen:before {
-	content: "\e00b";
+.icon-list-numbered:before {
+  content: "\e9b9";
 }
-.icon-question:before {
-	content: "\e00c";
+.icon-list2:before {
+  content: "\e9bb";
 }
-.icon-info:before {
-	content: "\e00d";
+.icon-link:before {
+  content: "\e9cb";
 }
-.icon-undo:before {
-	content: "\e00e";
+.icon-eye:before {
+  content: "\e9ce";
 }
-.icon-redo:before {
-	content: "\e00f";
+.icon-bold:before {
+  content: "\ea62";
 }
-.icon-code:before {
-	content: "\e011";
+.icon-italic:before {
+  content: "\ea64";
 }
-.icon-preview:before {
-	content: "\e002";
+.icon-pagebreak:before {
+  content: "\ea6e";
 }
+.icon-table2:before {
+  content: "\ea71";
+}
+.icon-embed2:before {
+  content: "\ea80";
+}
+

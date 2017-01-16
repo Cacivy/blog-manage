@@ -8,7 +8,7 @@
 - [x] 文章管理
 - [x] 日志管理
 - [x] 数据分析
-- [x] 在线Markdown编辑器
+- [x] Markdown
 
 ## Build Setup
 

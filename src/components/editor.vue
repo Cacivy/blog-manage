@@ -1,18 +1,21 @@
 <template>
-    <div id="editor">   
+    <div id="editor" :class="{'split': isSplit}">   
         <div class="editor-toolbar">
             <a class="icon-bold" @click="toggleBlock('bold', '**')"></a>
             <a class="icon-italic" @click="toggleBlock('italic', '*')"></a>
+            <a class="icon-embed2" @click="toggleBlock('code', '`')"></a>
             <i class="separator">|</i>
-            <a class="icon-quote" @click="toggleLine('quote')"></a>
-            <a class="icon-unordered-list" @click="toggleLine('unordered-list')"></a>
-            <a class="icon-ordered-list" @click="toggleLine('ordered-list')"></a>
+            <a class="icon-quotes-left" @click="toggleLine('quote')"></a>
+            <a class="icon-list2" @click="toggleLine('unordered-list')"></a>
+            <a class="icon-list-numbered" @click="toggleLine('ordered-list')"></a>
             <i class="separator">|</i>
             <a class="icon-link" @click="replaceSelection('[', '](http://)')"></a>
             <a class="icon-image" @click="replaceSelection('![', '](http://)')"></a>
+            <!-- <a class="icon-table2"></a> -->
             <i class="separator">|</i>
-            <a class="icon-preview" :class="{'active': isPreview}" @click="togglePreview"></a>
-            <a class="icon-fullscreen" @click="toggleFullScreen"></a>
+            <a class="icon-columns" :class="{'active': isSplit}" @click="toggleSplit"></a>
+            <a class="icon-eye" :class="{'active': isPreview}" @click="togglePreview"></a>
+            <a class="icon-enlarge2 icon-fullscreen" @click="toggleFullScreen"></a>
         </div>
         <textarea id="m-editor"></textarea>
         <div class="editor-statusbar">
@@ -37,7 +40,7 @@ import 'CodeMirror/keymap/sublime.js'
 import 'CodeMirror/lib/codemirror.css'
 import 'CodeMirror/addon/scroll/simplescrollbars.css'
 import 'highlight.js/styles/default.css'
-import '../assets/style/preview/vue.css'
+import '../assets/style/preview/github.css'
 
 export default {
     data() {
@@ -51,15 +54,29 @@ export default {
                     ch: 0
                 }
             },
-            isPreview: false
+            isPreview: false,
+            isSplit: false,
+            placeholder: 'Content'
         }
     },
     props: {
         value: String
     },
     created() {
+        let renderer = new marked.Renderer()
+        /* Todo列表 */
+        renderer.listitem = (text) => {
+            if (/^\s*\[[x ]\]\s*/.test(text)) {
+                text = text
+                    .replace(/^\s*\[ \]\s*/, '<input type="checkbox" class="task-list-item-checkbox" disabled> ')
+                    .replace(/^\s*\[x\]\s*/, '<input type="checkbox" class="task-list-item-checkbox" disabled checked> ');
+                return '<li style="list-style: none">' + text + '</li>';
+            } else {
+                return '<li>' + text + '</li>';
+            }
+        };
         marked.setOptions({
-            renderer: new marked.Renderer(),
+            renderer,
             gfm: true,
             tables: true,
             breaks: false,
@@ -73,6 +90,7 @@ export default {
         });
     },
     mounted() {
+        let el = document.getElementById('m-editor')
         const config = {
             mode: 'gfm',
             lineNumbers: false,
@@ -82,11 +100,44 @@ export default {
             scrollbarStyle: "simple", // overlay
             tabSize: 2,
             allowDropFileTypes: ["text/plain"],
-            placeholder: "Content",
             indentWithTabs: true,
+            placeholder: this.placeholder,
             keyMap: 'sublime'
         }
-        this.editor = CodeMirror.fromTextArea(document.getElementById('m-editor'), Object.assign({}, config))
+        this.editor = CodeMirror.fromTextArea(el, Object.assign({}, config))
+        // 添加preview
+        let wrapper = this.editor.getWrapperElement();
+        let preview = wrapper.lastChild;
+        if (!/editor-preview/.test(preview.className)) {
+            preview = document.createElement('div');
+            preview.className = 'editor-preview';
+            wrapper.appendChild(preview);
+        }
+        var cScroll = false
+	    var pScroll = false
+        preview.onscroll = () => {
+            if(pScroll) {
+                pScroll = false
+                return
+            }
+            cScroll = true
+            var height = preview.scrollHeight - preview.clientHeight;
+            var ratio = parseFloat(preview.scrollTop) / height;
+            var move = (this.editor.getScrollInfo().height - this.editor.getScrollInfo().clientHeight) * ratio;
+            this.editor.scrollTo(0, move);
+        };
+        this.editor.on('scroll', (cm, e) => {
+            if(cScroll) {
+                cScroll = false
+                return
+            }
+            pScroll = true
+
+            var scroll_info = cm.getScrollInfo()
+            var scale = (scroll_info.top) / (scroll_info.height - scroll_info.clientHeight);
+            let $preview = document.querySelector('.editor-preview')
+            $preview.scrollTop = ($preview.scrollHeight - $preview.clientHeight) * scale
+        })
         this.editor.on('change', (cm) => {
             this.onChange(cm)
         })
@@ -266,14 +317,12 @@ export default {
             var cm = this.editor;
             var wrapper = cm.getWrapperElement();
             var preview = wrapper.lastChild;
-            if (!/editor-preview/.test(preview.className)) {
-                preview = document.createElement('div');
-                preview.className = 'editor-preview';
-                wrapper.appendChild(preview);
-            }
             if (/editor-preview-active/.test(preview.className)) {
                 preview.className = preview.className.replace(/\s*editor-preview-active\s*/g, '');
                 this.isPreview = false
+                if (this.isSplit) {
+                    this.isSplit = false
+                }
             } else {
                 setTimeout(function() {
                     preview.className += ' editor-preview-active'
@@ -282,6 +331,14 @@ export default {
             }
             var text = cm.getValue();
             preview.innerHTML = marked(text);
+        },
+        toggleSplit() {
+            this.isSplit = !this.isSplit
+            if (this.isSplit) {
+                if (!this.isPreview) {
+                    this.togglePreview()
+                }
+            }
         }
     },
     watch: {
@@ -293,6 +350,13 @@ export default {
                 this.content = newVal
                 this.editor.scrollTo(scrollInfo.left, scrollInfo.top)
             }
+            if (this.isPreview) {
+                var cm = this.editor;
+                var wrapper = cm.getWrapperElement();
+                var preview = wrapper.lastChild;
+                var text = cm.getValue();
+                preview.innerHTML = marked(text);
+            }
         }
     }
 }
@@ -301,8 +365,9 @@ export default {
 <style>
 .CodeMirror {
     /*font-family: 'Microsoft Yahei', 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 16px;
     border: 1px solid #eee;*/
+    min-height: 500px;
+    font-size: 20px;
     border-top: 0;
 }
 
@@ -413,5 +478,16 @@ export default {
 }
 .editor-preview > p {
   margin-top: 0;
+}
+#editor.split .CodeMirror-scroll {
+    width: 50%;
+}
+#editor.split .editor-preview {
+    width: calc(50% - 15px);
+    left: 50%;
+    border-left: 1px solid #ddd;
+    padding: 0 10px;
+    background: #fafafa;
+    overflow: auto;
 }
 </style>

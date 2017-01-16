@@ -8,7 +8,7 @@
 .editor-preview table {
     display: block;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
     word-break: normal;
     word-break: keep-all;
 }
@@ -85,7 +85,6 @@
     margin: 1em auto
 }
 
-.editor-preview>table,
 .editor-preview>figure.highlight {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.125)
 }
@@ -119,4 +118,8 @@
     text-align: center;
     background-color: #f66;
     font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif
+}
+
+.editor-preview table {
+    border-spacing: 0;
 }

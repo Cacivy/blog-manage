@@ -32,7 +32,7 @@
                             </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="活动时间">
+                <el-form-item label="选择时间">
                     <el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="立即发布">
