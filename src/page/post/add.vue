@@ -1,7 +1,7 @@
 <template>
     <el-row :gutter="12">
         <el-col :span="16">
-            <editor v-model="form.content"></editor>
+            <editor v-model="form.content" ref="editor"></editor>
         </el-col>
         <el-col :span="8">
             <el-form ref="ruleForm" :rules="rules" :model="form" label-width="100px">
@@ -59,6 +59,7 @@ export default {
                 title: '',
                 date: getDate(),
                 content: '',
+                body: '',
                 category: '',
                 tag: [],
                 delivery: false,
@@ -109,6 +110,7 @@ export default {
         onSubmit() {
             this.$refs.ruleForm.validate((valid) => {
                 if (valid) {
+                    this.form.html = this.$refs.editor.getHtml()
                     let req = this.form._id ? this.$api.put_post(this.form) : this.$api.post_post(this.form)
                     req.then(res => {
                         this.$router.push({path: '/post'})

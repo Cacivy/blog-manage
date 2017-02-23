@@ -4,7 +4,7 @@
     theme="dark" 
     default-active="1" 
     :router="true" 
-    class="el-menu-nav" 
+    class="el-menu-nav"
     mode="horizontal" 
     @select="handleSelect">
       <el-menu-item index="1" :route="{path: '/'}">首页</el-menu-item>

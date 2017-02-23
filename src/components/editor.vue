@@ -339,6 +339,11 @@ export default {
                     this.togglePreview()
                 }
             }
+        },
+        getHtml() {
+            var cm = this.editor
+            var text = cm.getValue()
+            return marked(text)
         }
     },
     watch: {
@@ -351,11 +356,10 @@ export default {
                 this.editor.scrollTo(scrollInfo.left, scrollInfo.top)
             }
             if (this.isPreview) {
-                var cm = this.editor;
-                var wrapper = cm.getWrapperElement();
-                var preview = wrapper.lastChild;
-                var text = cm.getValue();
-                preview.innerHTML = marked(text);
+                var cm = this.editor
+                var wrapper = cm.getWrapperElement()
+                var preview = wrapper.lastChild
+                preview.innerHTML = this.getHtml()
             }
         }
     }
