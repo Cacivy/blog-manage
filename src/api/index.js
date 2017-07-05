@@ -2,7 +2,7 @@ import Vue from 'vue'
 import router from '../config/router.config'
 import axios from 'axios'
 
-const host = 'http://localhost:8085/api/'
+const host = `http://${process.env.NODE_ENV === 'production' ? '172.93.43.118' : 'localhost'}:8085/api/`
 
 var instance = axios.create({
   baseURL: host,
