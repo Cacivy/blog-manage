@@ -36,6 +36,12 @@ export default {
             loading: false
         }
     },
+    mounted() {
+        this.$message({
+            type: 'info',
+            message: 'Welcome! default user: admin'
+        })
+    },
     methods: {
         onSubmit() {
             this.$refs.loginForm.validate((valid) => {
@@ -85,6 +91,10 @@ export default {
         }
 
         h3 {
+            text-align: center;
+        }
+        
+        small {
             text-align: center;
         }
 
